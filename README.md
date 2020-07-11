@@ -2,7 +2,13 @@
 
 ## HTR Fuel Height Randomizer
 
-- Copy your basis code to current directory and follow below interactive console 
+- Copy your basis code to current directory and follow below interactive console
+
+How to run it
+
+```bash
+python randomizer.py
+```
 
 ```bash
 Welcome to HTR-10 Randomizer
