@@ -10,22 +10,20 @@ def generate_random_number(total_random_number):
     return random.sample(range(80, 220), total_random_number)
 
 
-def replace_specific_line(line_number, read_file_name, line_content, write_file_name, save_path=DIRECTORY):
+def replace_specific_line(line_number, read_file_name, line_content, write_file_name):
     read_file = open(read_file_name, "r")
     list_of_lines = read_file.readlines()
     list_of_lines[line_number - 1] = f"{line_content}\n"
     read_file.close()
-
-    write_file_name = os.path.join(save_path, write_file_name)
 
     write_file = open(write_file_name, "w+") #will create if there is no file
     write_file.writelines(list_of_lines)
     write_file.close()
 
 
-def htr_fuel_height_replacer(height, read_file_name):
+def htr_fuel_height_replacer(height, read_file_name, save_path=DIRECTORY):
     height_in_code = round(BASE_COORDINATE + height, 3)
-    write_file_name = f"HTR10_BCC_{height}"
+    write_file_name = os.path.join(save_path, f"HTR10_BCC_{height}")
     fuel_height_line_content = f"surf 275 pz   {height_in_code}"
 
     replace_specific_line(HTR_FUEL_HEIGHT_LINE, read_file_name,
@@ -38,9 +36,8 @@ def htr_fuel_height_replacer(height, read_file_name):
 
 def title_replacer(height, read_file_name):
     write_file_name = read_file_name
-    read_file_name = os.path.join(DIRECTORY, write_file_name)
 
-    fuel_height_line_content = f"set title HTR-10 - Helium - {height} cm"
+    fuel_height_line_content = f"set title HTR-10 - BCC - {height} cm"
 
     replace_specific_line(TITLE_LINE, read_file_name,
                           fuel_height_line_content, write_file_name)
