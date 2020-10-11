@@ -1,0 +1,909 @@
+% -----------------------------------------------------------------------------
+
+set title HTR-10 - BCC - 184 cm
+
+% -----------------------------------------------------------------------------
+
+% Geometry:
+
+% -----------------------------------------------------------------------------
+
+% --- Universe 100 TRISO
+
+% --- cylinder centered at origin, radius 0.025 cm
+surf 101 sph 0.0 0.0 0.0 0.0250
+
+% --- cylinder centered at origin, radius 0.034 cm
+surf 102 sph 0.0 0.0 0.0 0.0340
+
+% --- cylinder centered at origin, radius 0.038 cm
+surf 103 sph 0.0 0.0 0.0 0.0380
+
+% --- cylinder centered at origin, radius 0.0415 cm
+surf 104 sph 0.0 0.0 0.0 0.0415
+
+% --- cylinder centered at origin, radius 0.0455 cm
+surf 105 sph 0.0 0.0 0.0 0.0455
+
+% --- cell 110 contain fuel
+cell 110 100 fuel  -101
+
+% --- cell 120 contain buffer
+cell 120 100 buffer  101 -102
+
+% --- cell 130 contain PyC
+cell 130 100 PyC  102 -103
+
+% --- cell 140 contain SiC
+cell 140 100 SiC  103 -104
+
+% --- cell 150 contain PyC
+cell 150 100 PyC  104 -105
+
+
+
+% --- Universe 200 FIller Grafit in space between every TRISO
+
+% ---filler grafit
+surf 201 inf
+
+% --- cell 210 contain grafit
+cell 210 200 grafit -201
+
+% --- explicit style - read the triso coordinate
+pbed 2000 200 "triso_8335.coordinate"
+
+
+
+% --- Universe 300 Pebble Fuel
+
+% --- sphere centered at origin, radius 2.5cm
+surf 3031 sph  0.0 0.0 0.0 2.5
+
+% --- sphere centered at origin, radius 3.0cm
+surf 3032 sph  0.0 0.0 0.0 3.0
+
+% --- cell 310 contain universe 100 (TRISO)
+cell 3310 300 fill 2000  -3031
+
+% --- cell 320 contain grafit
+cell 3320 300 grafit    3031 -3032
+
+
+
+
+
+% --- Universe 400 Pebble Graphite
+
+% --- sphere centered at origin, radius 2.5cm
+surf 401 sph  0.0 0.0 0.0 2.5
+
+% --- sphere centered at origin, radius 3.0cm
+surf 402 sph  0.0 0.0 0.0 3.0
+
+
+% --- cell 410 contain grafit
+cell 410 400 grafit   -401
+
+% --- cell 420 contain grafit
+cell 420 400 grafit    401 -402
+cell 421 400 helium    402
+lat 900  6 0 0 6 400
+% --- Udara
+
+mat udara   -0.001205 rgb 255 255 255
+
+ 6000.03c    0.000150
+ 7014.03c    0.784431
+ 8016.03c    0.210748
+ 18040.03c   0.004652503
+ 18038.03c   2.94273E-06
+ 18036.03c   1.56011E-05
+
+
+% --- Universe 0 Pebble "Global unit 0"
+
+% --- sphere centered at origin, radius 2.5cm
+surf 301 sph  0.0 0.0 0.0 2.5
+
+% --- sphere centered at origin, radius 3cm
+surf 302 sph  0.0 0.0 0.0 3
+
+% --- cube centered at origin, radius 6cm
+surf 303 cube 0.0 0.0 0.0 3.421967246
+
+% --- sphere centered at boundary (x,y,z) , radius 2.7cm
+surf 311 sph  3.421967246 3.421967246 3.421967246 2.7
+
+% --- sphere centered at boundary (-x,y,z) , radius 2.7cm
+surf 312 sph  -3.421967246 3.421967246 3.421967246 2.7
+
+% --- sphere centered at boundary (-x,-y,z) , radius 2.7cm
+surf 313 sph  -3.421967246 -3.421967246 3.421967246 2.7
+
+% --- sphere centered at boundary (x,-y,z) , radius 2.7cm
+surf 314 sph  3.421967246 -3.421967246 3.421967246 2.7
+
+% --- sphere centered at boundary (x,y,-z) , radius 2.7cm
+surf 315 sph  3.421967246 3.421967246 -3.421967246 2.7
+
+% --- sphere centered at boundary (-x,y,-z) , radius 2.7cm
+surf 316 sph  -3.421967246 3.421967246 -3.421967246 2.7
+
+% --- sphere centered at boundary (-x,-y,-z) , radius 2.7cm
+surf 317 sph  -3.421967246 -3.421967246 -3.421967246 2.7
+
+% --- sphere centered at boundary (x,-y,-z) , radius 2.7cm
+surf 318 sph  3.421967246 -3.421967246 -3.421967246 2.7
+
+
+
+% --- cell 310 contain universe 100 (TRISO)
+cell 310 700 fill 2000  -301
+
+% --- cell 320 contain grafit
+cell 320 700 grafitb    301 -302
+
+% --- cell 311 sphere (x,y,z)contain grafit
+cell 311 700 grafitb    302 -303 -311
+
+% --- cell 312 sphere (-x,y,z)contain grafit
+cell 312 700 grafitb    302 -303 -312
+
+% --- cell 313 sphere (-x,-y,z)contain grafit
+cell 313 700 grafitb   -303 -313
+
+% --- cell 314 sphere (x,-y,z)contain grafit
+cell 314 700 grafitb   -303 -314
+
+% --- cell 315 sphere (x,y,-z)contain grafit
+cell 315 700 grafitb   -303 -315
+
+% --- cell 316 sphere (-x,y,-z)contain grafit
+cell 316 700 grafitb   -303 -316
+
+% --- cell 317 sphere (-x,-y,-z)contain grafit
+cell 317 700 grafitb   -303 -317
+
+% --- cell 318 sphere (x,-y,-z)contain grafit
+cell 318 700 grafitb   -303 -318
+
+% --- cell 330 contain helium
+cell 330 700 helium    302 -303 311 312 313 314 315 316 317 318
+
+% --- cell 340 contain out of world
+cell 340 700 outside   303
+
+% --- lattice for Pebble BCC
+lat  600   6   0   0   6.843934491  700
+
+
+
+
+
+
+% --- Core
+
+
+surf   1 cyl     0.0  0.0    90.00   -40.00     0.00
+surf   2 cyl     0.0  0.0    90.00   -95.00   -40.00
+surf   3 cyl     0.0  0.0    90.00  -105.00   -95.00
+surf   4 cyl     0.0  0.0    90.00  -130.00  -105.00
+surf   5 cyl     0.0  0.0    90.00  -351.818 -130.00
+surf 106 cyl     0.0  0.0    90.00  -351.818 -130.00
+surf 107 cone    0.0  0.0  -351.818   90.00   -51.156
+surf 108 pz   -351.818
+surf 109 pz   -388.764
+surf   6 cyl     0.0  0.0    25.00  -610.00  -388.764
+$surf   7 cyl     0.0  0.0    25.00  -540.00  -495.00
+$surf  81 cyl     0.0  0.0    25.00  -610.00  -540.00
+surf  10 cyl     0.0  0.0    41.75  -450.00  -430.00
+surf  12 cyl     0.0  0.0    41.75  -510.00  -450.00
+surf   8 cyl     0.0  0.0    90.00  -402.00  -388.764
+surf   9 cyl     0.0  0.0    90.00  -430.00  -402.00
+surf  11 cyl     0.0  0.0    90.00  -450.00  -430.00
+surf  13 cyl     0.0  0.0    90.00  -465.00  -450.00
+surf  14 cyl     0.0  0.0    70.75  -495.00  -465.00
+surf  15 cyl     0.0  0.0    90.00  -495.00  -465.00
+surf  16 cyl     0.0  0.0    90.00  -510.00  -495.00
+surf  17 cyl     0.0  0.0    95.60  -540.00  -510.00
+surf  18 cyl     0.0  0.0    95.60  -610.00  -540.00
+surf 100 cyl     0.0  0.0    90.00  -388.764 -351.818
+surf  19 cyl     0.0  0.0    95.60   -40.00     0.00
+surf  20 cyl     0.0  0.0    95.60   -95.00   -40.00
+surf  21 cyl     0.0  0.0    95.60  -105.00   -95.00
+surf  22 cyl     0.0  0.0    95.60  -388.764 -105.00
+surf  23 cyl     0.0  0.0    95.60  -430.00  -388.764
+surf  24 cyl     0.0  0.0    95.60  -450.00  -430.00
+surf  25 cyl     0.0  0.0    95.60  -465.00  -450.00
+surf  26 cyl     0.0  0.0    95.60  -495.00  -465.00
+surf  80 cyl     0.0  0.0    95.60  -510.00  -495.00
+surf  27 cyl     0.0  0.0   108.60   -40.00     0.00
+surf  28 cyl     0.0  0.0   108.60   -95.00   -40.00
+surf  29 cyl     0.0  0.0   108.60  -105.00   -95.00
+surf  82 cyl     0.0  0.0   108.60  -114.70  -105.00
+surf  30 cyl     0.0  0.0   108.60  -130.00  -114.70
+surf 300 cyl     0.0  0.0   108.60  -388.764 -130.00
+surf  41 cyl     0.0  0.0   108.60  -430.00  -388.764
+surf  42 cyl     0.0  0.0   108.60  -450.00  -430.00
+surf  43 cyl     0.0  0.0   108.60  -465.00  -450.00
+surf  44 cyl     0.0  0.0   108.60  -495.00  -465.00
+surf  45 cyl     0.0  0.0   108.60  -510.00  -495.00
+surf  46 cyl     0.0  0.0   108.60  -540.00  -510.00
+surf  47 cyl     0.0  0.0   108.60  -610.00  -540.00
+surf  48 cyl     0.0  0.0   140.60  -105.00   -95.00
+surf  49 cyl     0.0  0.0   140.60  -388.764 -105.00
+surf  50 cyl     0.0  0.0   140.60  -430.00  -388.764
+surf  51 cyl     0.0  0.0   140.60  -450.00  -430.00
+surf  52 cyl     0.0  0.0   140.60  -465.00  -450.00
+surf  53 cyl     0.0  0.0   140.60  -495.00  -465.00
+surf  54 cyl     0.0  0.0   140.60  -510.00  -495.00
+surf  55 cyl     0.0  0.0   140.60  -540.00  -510.00
+surf  56 cyl     0.0  0.0   140.60  -610.00  -540.00
+surf  57 cyl     0.0  0.0   148.60  -105.00   -95.00
+surf 500 cyl     0.0  0.0   148.60  -388.764 -105.00
+surf  59 cyl     0.0  0.0   148.60  -430.00  -388.764
+surf  60 cyl     0.0  0.0   148.60  -450.00  -430.00
+surf  61 cyl     0.0  0.0   148.60  -465.00  -450.00
+surf  62 cyl     0.0  0.0   148.60  -495.00  -465.00
+surf  63 cyl     0.0  0.0   148.60  -510.00  -495.00
+surf  64 cyl     0.0  0.0   148.60  -540.00  -510.00
+surf  65 cyl     0.0  0.0   148.60  -610.00  -540.00
+surf  74 cyl     0.0  0.0   167.793  -40.00     0.00
+surf  66 cyl     0.0  0.0   167.793 -388.764  -40.00
+surf  67 cyl     0.0  0.0   167.793 -430.00  -388.764
+surf  68 cyl     0.0  0.0   167.793 -450.00  -430.00
+surf  69 cyl     0.0  0.0   167.793 -465.00  -450.00
+surf  70 cyl     0.0  0.0   167.793 -495.00  -465.00
+surf  71 cyl     0.0  0.0   167.793 -510.00  -495.00
+surf  72 cyl     0.0  0.0   167.793 -540.00  -510.00
+surf  73 cyl     0.0  0.0   167.793 -610.00  -540.00
+surf  75 cyl     0.0  0.0   190.00   -40.00     0.00
+surf  76 cyl     0.0  0.0   190.00  -465.00   -40.00
+surf  77 cyl     0.0  0.0   190.00  -495.00  -465.00
+surf  78 cyl     0.0  0.0   190.00  -540.00  -495.00
+surf  79 cyl     0.0  0.0   190.00  -610.00  -540.00
+surf 250 cyl     0.0  0.0   400.00  -700.00   100.00
+surf 275 pz   -167.818
+
+% --- Universe 500 Filler Helium in space between every Pebble
+
+% ---filler Helium
+surf 501 inf
+
+% --- cell 210 contain Helium
+cell 510 500 helium -501
+
+% --- explicit style - read the pebble & pebble graphite coordinate
+pbed 2100 500 "fix.coordinate"
+
+cell  1001  0  zone1    -1
+cell  1002  0  zone2    -2
+cell  1003  0  zone3    -3
+cell  1004  0  zone4    -4
+cell  1005  0  helium   -5  275
+cell  1106  0  fill 600    -106 -275
+cell  1107  0  fill 900    -107  -108  109
+cell  1006  0  fill 900   -6
+%cell  1007  0  helium   -7
+%cell  1081  0  helium   -81
+cell  1010  0  zone10   -10    6
+cell  1012  0  zone12   -12    6    7
+cell  1008  0  zone8    -8     6
+cell  1009  0  zone9    -9     6
+cell  1011  0  zone11   -11    10
+cell  1013  0  zone13   -13    12
+cell  1014  0  zone14   -14    12
+cell  1015  0  zone15   -15    14
+cell  1016  0  zone16   -16    12
+cell  1017  0  zone17   -17    6
+cell  1018  0  zone18   -18    6
+cell  1100  0  zone0    -100   107
+cell  1019  0  zone19   -19    1    3103 3105 3107 3109 3113 3117 3119
+cell  1020  0  zone20   -20    2    3103 3105 3107 3109 3113 3117 3119
+cell  1021  0  zone21   -21    3    3103 3105 3107 3109 3113 3117 3119
+cell  1022  0  zone22   -22    4    5    106  100  3003 3005 3007 3009 3013 3017 3019
+cell  1023  0  zone22   -23    8    9
+cell  1024  0  zone24   -24    11
+cell  1025  0  zone22   -25    13
+cell  1026  0  zone22   -26    15
+cell  1080  0  zone22   -80    16
+cell  1027  0  zone17   -27    19
+cell  1028  0  zone22   -28    20
+cell  1029  0  zone29   -29    21
+cell  1082  0  zone22   -82    22
+cell  1030  0  zone22   -30    22
+cell  1300  0  zone300  -300   22 3001 3002 3003 3004 3005 3006 3007 3008 3009 3010 3011 3012 3013 3014 3015 3016 3017 3018 3019 3020   % --- Control Rod Region
+cell  1041  0  zone22   -41    23 3203 3205 3207 3209 3213 3217 3219 3001 3002 3004 3006 3008 3010 3011 3012 3014 3015 3016 3018 3020
+cell  1042  0  zone42   -42    24 3203 3205 3207 3209 3213 3217 3219 3001 3002 3004 3006 3008 3010 3011 3012 3014 3015 3016 3018 3020
+cell  1043  0  zone22   -43    25 3203 3205 3207 3209 3213 3217 3219
+cell  1044  0  zone22   -44    26 3203 3205 3207 3209 3213 3217 3219
+cell  1045  0  zone22   -45    80 3203 3205 3207 3209 3213 3217 3219
+cell  1046  0  zone17   -46    17 3203 3205 3207 3209 3213 3217 3219
+cell  1047  0  zone18   -47    18 3203 3205 3207 3209 3213 3217 3219
+cell  1048  0  zone29   -48    29
+cell  1049  0  zone22   -49    82   30   300
+cell  1050  0  zone22   -50    41
+cell  1051  0  zone24   -51    42
+cell  1052  0  zone22   -52    43
+cell  1053  0  zone22   -53    44
+cell  1054  0  zone22   -54    45
+cell  1055  0  zone17   -55    46
+cell  1056  0  zone18   -56    47
+cell  1057  0  zone57   -57    48
+cell  1600  0  zone600  -500   49 601 602 603 604 605 606 607 608 609 610 611 612 613 614 615 616 617 618 619 620   % --- Helium Flow Region
+cell  1059  0  zone22   -59    50 601 602 603 604 605 606 607 608 609 610 611 612 613 614 615 616 617 618 619 620
+cell  1060  0  zone60   -60    51 601 602 603 604 605 606 607 608 609 610 611 612 613 614 615 616 617 618 619 620
+cell  1061  0  zone22   -61    52 601 602 603 604 605 606 607 608 609 610 611 612 613 614 615 616 617 618 619 620
+cell  1062  0  zone22   -62    53 601 602 603 604 605 606 607 608 609 610 611 612 613 614 615 616 617 618 619 620
+cell  1063  0  zone22   -63    54 601 602 603 604 605 606 607 608 609 610 611 612 613 614 615 616 617 618 619 620
+cell  1064  0  zone17   -64    55 601 602 603 604 605 606 607 608 609 610 611 612 613 614 615 616 617 618 619 620
+cell  1065  0  zone18   -65    56 601 602 603 604 605 606 607 608 609 610 611 612 613 614 615 616 617 618 619 620
+cell  1074  0  zone17   -74    27
+cell  1066  0  zone22   -66    28   57   500
+cell  1067  0  zone22   -67    59
+cell  1068  0  zone24   -68    60
+cell  1069  0  zone22   -69    61
+cell  1070  0  zone22   -70    62
+cell  1071  0  zone22   -71    63
+cell  1072  0  zone17   -72    64
+cell  1073  0  zone18   -73    65
+cell  1075  0  zone17   -75    74
+cell  1076  0  zone17   -76    66   67   68   69
+cell  1077  0  zone17   -77    70
+cell  1078  0  zone17   -78    71   72
+cell  1079  0  zone17   -79    73
+cell  9999  0  outside   75    76   77   78   79
+
+
+
+% --- Control Rod
+
+surf 3001  cyl  100.84298   15.97196  6.5  -450.00   0.00
+surf 3002  cyl   90.97177   46.35243  6.5  -450.00   0.00
+surf 3003  cyl   69.72073   69.72073  5.300810615  -388.764   -130.00 %KLAK
+surf 3004  cyl   46.35243   90.97177  6.5  -450.00   0.00
+surf 3005  cyl   15.42444   97.38607  5.300810615  -388.764   -130.00 %KLAK
+surf 3006  cyl  -15.97196  100.84298  6.5  -450.00   0.00
+surf 3007  cyl  -44.76346   87.85324  5.300810615  -388.764   -130.00 %KLAK
+surf 3008  cyl  -72.19560   72.19560  6.5  -450.00   0.00
+surf 3009  cyl  -87.85324   44.76346  5.300810615  -388.764   -130.00 %KLAK
+surf 3010  cyl -100.84298   15.97196  6.5  -450.00   0.00
+surf 3011  cyl -100.84298  -15.97196  6.5  -450.00   0.00
+surf 3012  cyl  -90.97177  -46.35243  6.5  -450.00   0.00
+surf 3013  cyl  -69.72073  -69.72073  5.300810615  -388.764   -130.00 %KLAK
+surf 3014  cyl  -46.35243  -90.97177  6.5  -450.00   0.00
+surf 3015  cyl  -15.97196 -100.84298  6.5  -450.00   0.00
+surf 3016  cyl   15.97196 -100.84298  6.5  -450.00   0.00
+surf 3017  cyl   44.76346  -87.85324  5.300810615  -388.764   -130.00 %KLAK
+surf 3018  cyl   72.19560  -72.19560  6.5  -450.00   0.00
+surf 3019  cyl   87.85324  -44.76346  5.300810615  -388.764   -130.00 %KLAK
+surf 3020  cyl  100.84298  -15.97196  6.5  -450.00   0.00
+
+surf 3103  cyl   69.72073   69.72073  3.0   -130.00   0.0 %KLAK
+surf 3105  cyl   15.42444   97.38607  3.0   -130.00   0.0 %KLAK
+surf 3107  cyl  -44.76346   87.85324  3.0   -130.00   0.0 %KLAK
+surf 3109  cyl  -87.85324   44.76346  3.0   -130.00   0.0 %KLAK
+surf 3113  cyl  -69.72073  -69.72073  3.0   -130.00   0.0 %KLAK
+surf 3117  cyl   87.85324  -44.76346  3.0   -130.00   0.0 %KLAK
+surf 3119  cyl   44.76346  -87.85324  3.0   -130.00   0.0 %KLAK
+surf 3203  cyl   69.72073   69.72073  3.0   -610.00  -388.764 %KLAK
+surf 3205  cyl   15.42444   97.38607  3.0   -610.00  -388.764 %KLAK
+surf 3207  cyl  -44.76346   87.85324  3.0   -610.00  -388.764 %KLAK
+surf 3209  cyl  -87.85324   44.76346  3.0   -610.00  -388.764 %KLAK
+surf 3213  cyl  -69.72073  -69.72073  3.0   -610.00  -388.764 %KLAK
+surf 3217  cyl   87.85324  -44.76346  3.0   -610.00  -388.764 %KLAK
+surf 3219  cyl   44.76346  -87.85324  3.0   -610.00  -388.764 %KLAK
+
+cell 3001   0  helium  -3001
+cell 3002   0  helium  -3002
+cell 3003   0  helium  -3003
+cell 3004   0  helium  -3004
+cell 3005   0  helium  -3005
+cell 3006   0  helium  -3006
+cell 3007   0  helium  -3007
+cell 3008   0  helium  -3008
+cell 3009   0  helium  -3009
+cell 3010   0  helium  -3010
+cell 3011   0  helium  -3011
+cell 3012   0  helium  -3012
+cell 3013   0  helium  -3013
+cell 3014   0  helium  -3014
+cell 3015   0  helium  -3015
+cell 3016   0  helium  -3016
+cell 3017   0  helium  -3017
+cell 3018   0  helium  -3018
+cell 3019   0  helium  -3019
+cell 3020   0  helium  -3020
+
+cell 3103   0  helium  -3103
+cell 3105   0  helium  -3105
+cell 3107   0  helium  -3107
+cell 3109   0  helium  -3109
+cell 3113   0  helium  -3113
+cell 3117   0  helium  -3117
+cell 3119   0  helium  -3119
+cell 3203   0  helium  -3203
+cell 3205   0  helium  -3205
+cell 3207   0  helium  -3207
+cell 3209   0  helium  -3209
+cell 3213   0  helium  -3213
+cell 3217   0  helium  -3217
+cell 3219   0  helium  -3219
+
+
+
+
+% --- Helium Flow Channels
+
+surf  601  cyl  142.81973   22.62042  4.0  -610.00  -105.00
+surf  602  cyl  128.83954   65.64703  4.0  -610.00  -105.00
+surf  603  cyl  102.24764  102.24764  4.0  -610.00  -105.00
+surf  604  cyl   65.64703  128.83954  4.0  -610.00  -105.00
+surf  605  cyl   22.62042  142.81973  4.0  -610.00  -105.00
+surf  606  cyl  -22.62042  142.81973  4.0  -610.00  -105.00
+surf  607  cyl  -65.64703  128.83954  4.0  -610.00  -105.00
+surf  608  cyl -102.24764  102.24764  4.0  -610.00  -105.00
+surf  609  cyl -128.83954   65.64703  4.0  -610.00  -105.00
+surf  610  cyl -142.81973   22.62042  4.0  -610.00  -105.00
+surf  611  cyl -142.81973  -22.62042  4.0  -610.00  -105.00
+surf  612  cyl -128.83954  -65.64703  4.0  -610.00  -105.00
+surf  613  cyl -102.24764 -102.24764  4.0  -610.00  -105.00
+surf  614  cyl  -65.64703 -128.83954  4.0  -610.00  -105.00
+surf  615  cyl  -22.62042 -142.81973  4.0  -610.00  -105.00
+surf  616  cyl   22.62042 -142.81973  4.0  -610.00  -105.00
+surf  617  cyl   65.64703 -128.83954  4.0  -610.00  -105.00
+surf  618  cyl  102.24764 -102.24764  4.0  -610.00  -105.00
+surf  619  cyl  128.83954  -65.64703  4.0  -610.00  -105.00
+surf  620  cyl  142.81973  -22.62042  4.0  -610.00  -105.00
+
+
+cell 601  0  helium  -601
+cell 602  0  helium  -602
+cell 603  0  helium  -603
+cell 604  0  helium  -604
+cell 605  0  helium  -605
+cell 606  0  helium  -606
+cell 607  0  helium  -607
+cell 608  0  helium  -608
+cell 609  0  helium  -609
+cell 610  0  helium  -610
+cell 611  0  helium  -611
+cell 612  0  helium  -612
+cell 613  0  helium  -613
+cell 614  0  helium  -614
+cell 615  0  helium  -615
+cell 616  0  helium  -616
+cell 617  0  helium  -617
+cell 618  0  helium  -618
+cell 619  0  helium  -619
+cell 620  0  helium  -620
+
+
+
+% -----------------------------------------------------------------------------
+
+% Material data:
+
+% -----------------------------------------------------------------------------
+
+
+% -- Fuel:
+
+mat fuel   -10.4 tmp 300.0 rgb 255 0 0
+
+92238.03c    1.92922E-02
+92235.03c    3.95141E-03
+ 8016.03c    4.64872E-02
+ 5010.03c    1.85948E-08
+ 5011.03c    7.43795E-08
+
+
+% --- Carbon buffer layer:
+
+mat buffer  -1.1 tmp 300.0 moder grph 6000
+
+ 6000.03c    5.52108E-02
+
+% --- Pyrolytic carbon layer:
+
+mat PyC     -1.90 tmp 300.0 moder grph 6000
+
+ 6000.03c    9.536416E-02
+
+% --- Silicon carbide layer:
+
+mat SiC     -3.18 tmp 300.0
+
+14028.03c    4.414798E-02
+14029.03c    2.250493E-02
+14030.03c    1.484365E-02
+ 6000.03c    4.788285E-02
+
+% --- Matrix Grafit:
+
+mat grafit  -1.73 tmp 300.0 rgb 0 0 0  moder grph 6000
+
+  6000.03c    8.68316E-02
+  5010.03c    2.25762E-08
+  5011.03c    9.03048E-08
+
+% --- Matrix Grafit BCC:
+
+mat grafitb  -2.373113855 tmp 300.0 rgb 0 0 0  moder grph 6000
+
+  6000.03c    8.68316E-02
+  5010.03c    1.56598E-07
+  5011.03c    6.26392E-07
+
+% --- Helium
+
+mat helium   3.621402E-04 tmp 300.0 rgb 255 255 204
+
+ 2004.03c    3.621402E-04
+
+
+% --- Zone 0
+
+mat zone0     -1.763 tmp 300.0 moder grph 6000
+
+ 6000.03c    8.510470E-02
+ 5010.03c    9.138520E-08
+ 5011.03c    3.655408E-07
+
+
+% --- Zone 1
+
+mat zone1     -1.59 tmp 300.0 moder grph 6000
+
+ 6000.03c    7.294100E-02
+ 5010.03c    6.596220E-04
+ 5011.03c    2.638488E-03
+
+
+% --- Zone 2
+
+mat zone2     -1.763 tmp 300.0 moder grph 6000
+
+ 6000.03c    8.514620E-02
+ 5010.03c    6.596220E-04
+ 5011.03c    2.638488E-03
+
+
+% --- Zone 3
+
+mat zone3     -1.763 tmp 300.0 moder grph 6000
+
+ 6000.03c    1.453500E-02
+ 5010.03c    9.142960E-08
+ 5011.03c    3.657184E-07
+
+
+% --- Zone 4
+
+mat zone4     -1.763 tmp 300.0 moder grph 6000
+
+ 6000.03c    8.029160E-02
+ 5010.03c    1.560768E-08
+ 5011.03c    6.243072E-08
+
+
+% --- Zone 6
+
+mat zone6     -1.763 tmp 300.0 moder grph 6000
+
+ 6000.03c    5.382750E-02
+ 5010.03c    5.779980E-08
+ 5011.03c    2.311992E-07
+
+
+% --- Zone 7
+
+mat zone7     -1.763 tmp 300.0 moder grph 6000
+
+ 6000.03c    5.382750E-02
+ 5010.03c    5.779980E-08
+ 5011.03c    2.311992E-07
+
+
+% --- Zone 81
+
+mat zone81    -1.59 tmp 300.0 moder grph 6000
+
+ 6000.03c    7.971840E-02
+
+
+
+% --- Zone 8
+
+mat zone8     -1.763 tmp 300.0 moder grph 6000
+
+ 6000.03c    7.814080E-02
+ 5010.03c    8.390740E-08
+ 5011.03c    3.356296E-07
+
+
+% --- Zone 9
+
+mat zone9     -1.763 tmp 300.0 moder grph 6000
+
+ 6000.03c    8.237510E-02
+ 5010.03c    8.845420E-08
+ 5011.03c    3.538168E-07
+
+
+% --- Zone 10
+
+mat zone10    -1.763 tmp 300.0 moder grph 6000
+
+ 6000.03c    8.436470E-02
+ 5010.03c    5.970080E-05
+ 5011.03c    2.388032E-04
+
+
+% --- Zone 11
+
+mat zone11    -1.763 tmp 300.0 moder grph 6000
+
+ 6000.03c    8.171010E-02
+ 5010.03c    3.128320E-05
+ 5011.03c    1.251328E-04
+
+
+% --- Zone 12
+
+mat zone12    -1.763 tmp 300.0 moder grph 6000
+
+ 6000.03c    8.507900E-02
+ 5010.03c    4.181840E-05
+ 5011.03c    1.672736E-04
+
+
+% --- Zone 13
+
+mat zone13    -1.763 tmp 300.0 moder grph 6000
+
+ 6000.03c    8.191670E-02
+ 5010.03c    7.170580E-06
+ 5011.03c    2.868232E-05
+
+
+% --- Zone 14
+
+mat zone14    -1.763 tmp 300.0 moder grph 6000
+
+ 6000.03c    5.411180E-02
+ 5010.03c    1.154912E-05
+ 5011.03c    4.619648E-05
+
+
+% --- Zone 15
+
+mat zone15    -1.763 tmp 300.0 moder grph 6000
+
+ 6000.03c    3.321100E-02
+ 5010.03c    3.566180E-08
+ 5011.03c    1.426472E-07
+
+
+% --- Zone 16
+
+mat zone16    -1.763 tmp 300.0 moder grph 6000
+
+ 6000.03c    8.818110E-02
+ 5010.03c    7.177320E-06
+ 5011.03c    2.870928E-05
+
+
+% --- Zone 17, 27, 46, 55, 64, 72, 74-79
+
+mat zone17    -1.59 tmp 300.0 moder grph 6000
+
+ 6000.03c    7.659840E-02
+ 5010.03c    6.926980E-04
+ 5011.03c    2.770792E-03
+
+
+% --- Zone 18, 47, 56, 65, 73
+
+mat zone18    -1.763 tmp 300.0 moder grph 6000
+
+ 6000.03c    7.971840E-02
+ 5010.03c    0.000000E+00
+ 5011.03c    0.000000E+00
+
+
+% --- Zone 19
+
+mat zone19    -1.763 tmp 300.0 moder grph 6000
+
+ 6000.03c    7.611570E-02
+ 5010.03c    6.883320E-04
+ 5011.03c    2.753328E-03
+
+
+% --- Zone 20
+
+mat zone20    -1.763 tmp 300.0 moder grph 6000
+
+ 6000.03c    8.783740E-02
+ 5010.03c    9.431940E-08
+ 5011.03c    3.772776E-07
+
+
+% --- Zone 21
+
+mat zone21    -1.763 tmp 300.0 moder grph 6000
+
+ 6000.03c    5.796960E-02
+ 5010.03c    6.224760E-08
+ 5011.03c    2.489904E-07
+
+
+% --- Zone 22, 23, 25, 26, 28, 30-41, 43-45, 49-50, 52-54, 58-59, 61-63, 66-67, 69-71, 80, 82
+
+mat zone22    -1.763 tmp 300.0 moder grph 6000
+
+ 6000.03c    8.824180E-02
+ 5010.03c    9.475380E-08
+ 5011.03c    3.790152E-07
+
+
+% --- Zone 24, 51, 68
+
+mat zone24    -1.763 tmp 300.0 moder grph 6000
+
+ 6000.03c    7.971840E-02
+ 5010.03c    0.000000E+00
+ 5011.03c    0.000000E+00
+
+
+% --- Zone 29
+
+mat zone29    -1.763 tmp 300.0 moder grph 6000
+
+ 6000.03c    5.248434E-02
+ 5010.03c    3.639384E-06
+ 5011.03c    1.455754E-05
+
+
+% --- Zone 42
+
+mat zone42    -1.763 tmp 300.0 moder grph 6000
+
+ 6000.03c    8.796365E-02
+ 5010.03c    3.258055E-05
+ 5011.03c    1.303222E-04
+
+
+% --- Control Rod Region
+
+mat zone300   -1.763 tmp 300.0 moder grph 6000
+
+ 6000.03c    8.824180E-02
+ 5010.03c    9.475380E-08
+ 5011.03c    3.790152E-07
+
+
+% --- Zone 48
+
+mat zone48    -1.763 tmp 300.0 moder grph 6000
+
+ 6000.03c    5.826990E-02
+ 5010.03c    6.257000E-08
+ 5011.03c    2.502800E-07
+
+
+% --- Zone 57
+
+mat zone57    -1.763 tmp 300.0 moder grph 6000
+
+ 6000.03c    7.282620E-02
+ 5010.03c    7.820060E-08
+ 5011.03c    3.128024E-07
+
+
+% --- Zone 60
+
+mat zone60    -1.763 tmp 300.0 moder grph 6000
+
+ 6000.03c    8.795378E-02
+ 5010.03c    3.367382E-05
+ 5011.03c    1.346953E-04
+
+
+
+% --- Helium Flow Region
+
+mat zone600   -1.763 tmp 300.0 moder grph 6000
+
+ 6000.03c    8.824180E-02
+ 5010.03c    9.475380E-08
+ 5011.03c    3.790152E-07
+
+
+mat ss      -7.9 tmp 300.0
+
+   24000.03c  0.18
+   26000.03c  0.681
+   28000.03c  0.1
+   14000.03c  0.01
+   25055.03c  0.02
+    6000.03c  0.001
+   22000.03c  0.008
+
+
+mat Fe      0.04 tmp 300.0
+
+   26000.03c  1
+
+
+mat B4C    -1.7 tmp 300.0
+
+    6000.03c  0.018548
+	5010.03c  0.014838659
+	5011.03c  0.059354638
+
+
+% --- Thermal scattering data:
+
+therm grph gre7.04t
+
+
+% -----------------------------------------------------------------------------
+
+% Calculation parameters:
+
+% -----------------------------------------------------------------------------
+
+% --- Geometry plot:
+
+plot 3  500  500
+plot 13 760 1220  3.3
+plot 13 760 1220
+
+% --- Libraries:
+
+set acelib "/usr/local/xsdata/endfb7/sss_endfb7u.xsdata"
+set declib "/usr/local/xsdata/endfb7/sss_endfb7.dec"
+set nfylib "/usr/local/xsdata/endfb7/sss_endfb7.nfy"
+
+
+% --- Energy grid:
+
+set egrid 2E-6 1E-10 15.0
+set dix 1
+
+% --- Boundary conditions:
+
+set bc 1
+
+% --- Histories:
+
+set pop 10000 500 50
+
+% --- Reactor Power :
+
+set power 10000000
+
+% --- Energy Spectrum
+
+det EnergySpectrum de EnergyGrid
+
+ene EnergyGrid 3 500 1e-8 10e1
+
+% --- Radial 1D Distribution
+
+det radial1Ddistribution dr -8 void dm fuel dn 1 0.0 90 30 0 360 1 0 0 1
+
+% --- Axial 1D Distribution
+
+det axial1Ddistribution dr -8 void dz -388.764 -171.698 30
+
+% --- Radial 2D Distribution:
+
+det radialdistribution dr -8 void dx -90 90 30 dy -90 90 30
+
+% --- Axial 2D distribution Distribution:
+
+det axialdistribution dr -8 void dx -90 90 30 dz -388.764 -171.698 30

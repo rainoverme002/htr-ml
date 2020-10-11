@@ -21,9 +21,9 @@ def replace_specific_line(line_number, read_file_name, line_content, write_file_
     write_file.close()
 
 
-def htr_fuel_height_replacer(height, read_file_name, save_path=DIRECTORY):
+def htr_fuel_height_replacer(height, read_file_name, temperature, save_path=DIRECTORY):
     height_in_code = round(BASE_COORDINATE + height, 3)
-    write_file_name = os.path.join(save_path, f"HTR10_BCC_{height}")
+    write_file_name = os.path.join(save_path, f"HTR10_BCC_{height}_{temperature}")
     fuel_height_line_content = f"surf 275 pz   {height_in_code}"
 
     replace_specific_line(HTR_FUEL_HEIGHT_LINE, read_file_name,
@@ -55,18 +55,19 @@ def generator():
 
     answer = input("Do you want randomize the height? (y/n) ")
     basis_file_name = input("Please input your basis file name = ")
+    temperature = input("Please input your model temperature in Kelvin = ")
 
     if answer == 'y':
       total_random_number = int(input("How many random input do you want? "))
       random_heights = generate_random_number(total_random_number)
 
       for height in random_heights:
-          current_file_name = htr_fuel_height_replacer(height, basis_file_name)
+          current_file_name = htr_fuel_height_replacer(height, basis_file_name, temperature)
           title_replacer(height, current_file_name)
 
     else:
       height = int(input("Input Height of HTR Fuel in Core (cm) "))
-      current_file_name = htr_fuel_height_replacer(height, basis_file_name)
+      current_file_name = htr_fuel_height_replacer(height, basis_file_name, temperature)
       title_replacer(height, current_file_name)
 
 
